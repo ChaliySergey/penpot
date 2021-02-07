@@ -111,6 +111,7 @@
 
     (let [method-fn (get-in rpc [:methods :mutation :login-or-register])
           profile   (method-fn {:email (:email info)
+                                :backend "google"
                                 :fullname (:fullname info)})
           uagent    (get-in request [:headers "user-agent"])
           token     (tokens :generate {:iss :auth
