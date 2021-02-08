@@ -7,7 +7,8 @@
 ;;
 ;; Copyright (c) 2020 UXBOX Labs SL
 
-(ns app.main.ui.settings.options
+(ns app.main.ui.settings.feedback
+  "Feedback form."
   (:require
    [app.common.spec :as us]
    [app.main.data.messages :as dm]
@@ -17,14 +18,11 @@
    [app.main.ui.components.forms :as fm]
    [app.main.ui.icons :as i]
    [app.util.dom :as dom]
-   [app.util.i18n :as i18n :refer [t tr]]
+   [app.util.i18n :as i18n :refer [tr]]
    [cljs.spec.alpha :as s]
    [rumext.alpha :as mf]))
 
-(s/def ::lang (s/nilable ::us/not-empty-string))
-(s/def ::theme (s/nilable ::us/not-empty-string))
-
-(s/def ::options-form
+(s/def ::feedback-form
   (s/keys :opt-un [::lang ::theme]))
 
 (defn- on-error
@@ -43,38 +41,52 @@
     (st/emit! (du/update-profile (with-meta data mdata)))))
 
 (mf/defc options-form
-  [{:keys [locale] :as props}]
+  []
   (let [profile (mf/deref refs/profile)
-        form    (fm/use-form :spec ::options-form
+        form    (fm/use-form :spec ::feedback-form
                              :initial profile)]
-    [:& fm/form {:class "options-form"
+    [:& fm/form {:class "feedback-form"
                  :on-submit on-submit
                  :form form}
 
-     [:h2 (t locale "labels.language")]
+     ;; --- Feedback section
+     [:h2 (tr "feedback.title")]
+     [:p (tr "feedback.subtitle")]
 
      [:div.fields-row
-      [:& fm/select {:options [{:label "English" :value "en"}
-                               {:label "Français" :value "fr"}
-                               {:label "Español" :value "es"}
-                               {:label "Русский" :value "ru"}]
-                     :label (t locale "dashboard.select-ui-language")
-                     :default "en"
-                     :name :lang}]]
-
-     [:h2 (t locale "dashboard.theme-change")]
+      [:& fm/input {:label (tr "feedback.subject")
+                    :name :subject}]]
      [:div.fields-row
-      [:& fm/select {:label (t locale "dashboard.select-ui-theme")
-                     :name :theme
-                     :default "default"
-                     :options [{:label "Default" :value "default"}]}]]
+      [:& fm/textarea
+       {:label (tr "feedback.description")
+        :name :description
+        :rows 5}]]
+
      [:& fm/submit-button
-      {:label (t locale "dashboard.update-settings")}]]))
+      {:label (tr "labels.send")}]
 
-;; --- Password Page
+     [:hr]
 
-(mf/defc options-page
-  [{:keys [locale]}]
+     [:h2 (tr "feedback.discussions-title")]
+     [:p (tr "feedback.discussions-subtitle1")]
+     [:p (tr "feedback.discussions-subtitle2")]
+
+     [:a.btn-secondary.btn-large
+      {:href "https://github.com/penpot/penpot/discussions" :target "_blank"}
+      (tr "feedback.discussions-go-to")]
+
+     [:hr]
+
+     [:h2 "Gitter"]
+     [:p (tr "feedback.chat-subtitle")]
+     [:a.btn-secondary.btn-large
+      {:href "https://gitter.im/penpot/community" :target "_blank"}
+      (tr "feedback.chat-start")]
+
+     ]))
+
+(mf/defc feedback-page
+  []
   [:div.dashboard-settings
    [:div.form-container
-    [:& options-form {:locale locale}]]])
+    [:& options-form]]])

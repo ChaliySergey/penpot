@@ -8,6 +8,26 @@
       "es" : "¿Tienes ya una cuenta?"
     }
   },
+
+  "feedback.title" : {
+    "translations" : {
+      "en" : "Email",
+      "fr" : "Adresse email",
+      "ru" : "Email",
+      "es" : "Correo electrónico"
+    }
+  },
+
+  "feedback.subtitle": "Please describe the reason of your email, specifying if is an issue, an idea or a doubt. A member of our team will respond as soon as possible.",
+  "feedback.subject": "Subject",
+  "feedback.description": "Description",
+  "feedback.chat-subtitle": "Feeling like talking? Chat with us at Gitter",
+  "feedback.chat-start": "Join the chat",
+  "feedback.discussions-title": "Team discussions",
+  "feedback.discussions-subtitle1": "Join Penpot team collaborative communication forum.",
+  "feedback.discussions-subtitle2": "You can ask and answer questions, have open-ended conversations, and follow along on decisions affecting the project.",
+  "feedback.discussions-go-to": "Go to discussions",
+
   "auth.confirm-password" : {
     "used-in" : [ "src/app/main/ui/auth/recovery.cljs:77" ],
     "translations" : {
@@ -1605,12 +1625,12 @@
       "es" : "Correo electrónico"
     }
   },
-  "labels.feedback" : {
+  "labels.give-feedback" : {
     "used-in" : [ "src/app/main/ui/workspace/header.cljs:231", "src/app/main/ui/dashboard/sidebar.cljs:471" ],
     "translations" : {
       "en" : "Give feedback",
       "fr" : "Donnez votre avis",
-      "ru" : "Дать обратную связь",
+      "ru" : "Поделись своим мнением",
       "es" : "Danos tu opinión"
     }
   },
@@ -1823,6 +1843,7 @@
       "es" : "Cargo"
     }
   },
+  "labels.send": "Send",
   "labels.service-unavailable.desc-message" : {
     "used-in" : [ "src/app/main/ui/static.cljs:75" ],
     "translations" : {

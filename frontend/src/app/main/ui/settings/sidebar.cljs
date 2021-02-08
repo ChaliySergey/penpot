@@ -34,6 +34,7 @@
   (let [profile?   (= section :settings-profile)
         password?  (= section :settings-password)
         options?   (= section :settings-options)
+        feedback?  (= section :settings-feedback)
 
         go-dashboard
         (mf/use-callback
@@ -44,6 +45,11 @@
         (mf/use-callback
          (mf/deps profile)
          (st/emitf (rt/nav :settings-profile)))
+
+        go-settings-feedback
+        (mf/use-callback
+         (mf/deps profile)
+         (st/emitf (rt/nav :settings-feedback)))
 
         go-settings-password
         (mf/use-callback
@@ -77,7 +83,13 @@
        [:li {:class (when options? "current")
              :on-click go-settings-options}
         i/tree
-        [:span.element-title (t locale "labels.settings")]]]]]))
+        [:span.element-title (t locale "labels.settings")]]
+
+       [:li {:class (when feedback? "current")
+             :on-click go-settings-feedback}
+        i/msg-info
+        [:span.element-title (t locale "labels.give-feedback")]]
+       ]]]))
 
 (mf/defc sidebar
   {::mf/wrap [mf/memo]}
